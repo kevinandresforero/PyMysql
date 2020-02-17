@@ -2,8 +2,8 @@ import pymysql.cursors
 
 conexion = pymysql.connect(host="localhost",
                            user="root",
-                           passwd="",           #   contraseña de la base de datos
-                           database="alumno")   # nombre de la base de datos local ya creada
+                           passwd="261120",
+                           database="Prueba")
 
 cursor = conexion.cursor()
 
@@ -28,24 +28,17 @@ try:
 except:
     print("\n Ya estaba creada la DB")
 
-nom = input("Digite nombre del estudiante: ")
-cod = input("Digite codigo del estudiante: ")
-n1 = input("Digite nota del Corte 1: ")
-n2 = input("Digite nota del Corte 2: ")
-n3 = input("Digite nota del Corte 3: ")
-nf = float(n1)*0.35 + float(n2)*0.35 + float(n3)*0.30 
+Nombre = input("Digite nombre del estudiante: ")
+Codigo = input("Digite codigo del estudiante: ")
+Nota1 = input("Digite nota del Corte 1: ")
+Nota2 = input("Digite nota del Corte 2: ")
+Nota3 = input("Digite nota del Corte 3: ")
+NotaFinal = float(Nota1)*0.35 + float(Nota2)*0.35 + float(Nota3)*0.30
 
-print(nom)
-print(nf)
+print(Nombre)
+print(NotaFinal)
 
-"""
-#cursor=conexion.cursor()
-sql="insert into Estudiantes(Nombre, Codigo, Nota1, Nota2, Nota3, NotaFinal) values (%s,%s,%s,%s,%s,%s)"
-datos=(nom, cod, n1, n2, n3, nf)
-cursor.execute(sql, datos)
-#datos=("peras", 34)
-#cursor1.execute(sql, datos)
-#datos=("bananas", 25)
-#cursor1.execute(sql, datos)
-#conexion.commit()
-conexion.close()"""  
+InsertarRegistro = "insert into Estudiantes(Nombre, Codigo, Nota1, Nota2, Nota3, NotaFinal) values (%s,%s,%s,%s,%s,%s)"
+cursor.execute(InsertarRegistro, (Nombre, Codigo, Nota1, Nota2, Nota3, NotaFinal))
+cursor.close()
+conexion.commit()
