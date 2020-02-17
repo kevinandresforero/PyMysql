@@ -17,8 +17,12 @@ tabla = """CREATE TABLE Estudiantes(
 ) ;
 """
 try:
-    cursor.execute(tabla)
-    print("\nSe acaba de crear la DB\n")
+    cursor
+    print("\nSe Pudo Conectar con la DB")
 except:
-    print("\n Ya estaba creada la DB\n")
-
+    print("\nNo Se Pudo Conectar con la DB")
+try:
+    cursor.execute(tabla)
+    print("\nSe acaba de crear la DB")
+except:
+    print("\n Ya estaba creada la DB")
