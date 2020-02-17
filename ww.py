@@ -38,6 +38,7 @@ NotaFinal = float(Nota1)*0.35 + float(Nota2)*0.35 + float(Nota3)*0.30
 print(Nombre)
 print(NotaFinal)
 
+#   InsertarRegistro
 InsertarRegistro = "insert into Estudiantes(Nombre, Codigo, Nota1, Nota2, Nota3, NotaFinal) values (%s,%s,%s,%s,%s,%s)"
 cursor.execute(InsertarRegistro, (Nombre, Codigo, Nota1, Nota2, Nota3, NotaFinal))
 cursor.close()
