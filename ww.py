@@ -42,22 +42,52 @@ while op != 8:
             database=Db
         )
         cursor = conexion.cursor()
-        cursor.execute("SHOW DATABASES;")
+        #cursor.execute("SHOW DATABASES;")
         print("Conectado Ome")
-        print("Creando Tabla...")
-        CrearTabla = """CREATE TABLE Estudiantes(
-                        Nombre Char(30) NOT NULL,
-                        Codigo INT(11) NOT NULL,
-                        Nota1 FLOAT(4) DEFAULT NULL,
-                        Nota2 FLOAT(4) DEFAULT NULL,
-                        Nota3 FLOAT(4) DEFAULT NULL,
-                        NotaFinal FLOAT(4) DEFAULT NULL,
-                        PRIMARY KEY(Codigo)
-        ) ;"""
-        cursor.execute(CrearTabla)
+        try:
+            CrearTabla = """CREATE TABLE Estudiantes(
+                            Nombre Char(30) NOT NULL,
+                            Codigo INT(11) NOT NULL,
+                            Nota1 FLOAT(4) DEFAULT NULL,
+                            Nota2 FLOAT(4) DEFAULT NULL,
+                            Nota3 FLOAT(4) DEFAULT NULL,
+                            NotaFinal FLOAT(4) DEFAULT NULL,
+                            PRIMARY KEY(Codigo)
+            ) ;"""
+            cursor.execute(CrearTabla)
+            conexion.commit()
+            print("Cread Tabla Estudiantes")
+        except:
+            print("la Tabla Estudiantes Ya Existe")
+        cursor.close()
+        conexion.close()
+
+    elif  op == 3:
+        conexion = pymysql.connect(
+            host="localhost",
+            user="root",
+            passwd=contraseña,
+            database=Db
+        )
+
+        cursor = conexion.cursor()
+
+        Nombre = input("Digite nombre del estudiante: ")
+        Codigo = input("Digite codigo del estudiante: ")
+        Nota1 = input("Digite nota del Corte 1: ")
+        Nota2 = input("Digite nota del Corte 2: ")
+        Nota3 = input("Digite nota del Corte 3: ")
+        NotaFinal = float(Nota1) * 0.35 + float(Nota2) * 0.35 + float(Nota3) * 0.30
+
+        InsertarRegistro = """insert into Estudiantes(Nombre, Codigo, Nota1, Nota2, Nota3, NotaFinal) values
+         (%s,%s,%s,%s,%s,%s)"""
+        cursor.execute(InsertarRegistro, (Nombre, Codigo, Nota1, Nota2, Nota3, NotaFinal))
+        print("Registro Agregado <3")
         cursor.close()
         conexion.commit()
-        conexion.close()
+
+    elif op==4:
+        print("Cuarta opción")
 
 
 """try:
