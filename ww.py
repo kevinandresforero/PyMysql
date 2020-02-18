@@ -1,23 +1,66 @@
 import pymysql.cursors
 
-conexion = pymysql.connect(host="localhost",
-                           user="root",
-                           passwd="261120",
-                           database="Prueba")
+Db = "Prueba"
+contraseña = "261120"
+op = 0
 
-cursor = conexion.cursor()
+while op != 8:
+    print("\n")
+    print("1. Crear base de datos")
+    print("2. Crear tabla")
+    print("3. Instertar un registro")
+    print("4. Listar tabla")
+    print("5. Listar una sola fila")
+    print("6. Actualiza un registro")
+    print("7. Retira un registro")
+    print("8. Termina\n")
+    op = int(input("Digite opcion: "))
 
-tabla = """CREATE TABLE Estudiantes(
-    Nombre Char(30) NOT NULL,
-    Codigo INT(11) NOT NULL,
-    Nota1 FLOAT(4) DEFAULT NULL,
-    Nota2 FLOAT(4) DEFAULT NULL,
-    Nota3 FLOAT(4) DEFAULT NULL,
-    NotaFinal FLOAT(4) DEFAULT NULL,
-    PRIMARY KEY(Codigo)
-) ;
-"""
-try:
+    if op == 1:
+        conexion = pymysql.connect(
+            host="localhost",
+            user="root",
+            passwd=contraseña,
+        )
+        cursor = conexion.cursor()
+        cursor.execute("SHOW DATABASES;")
+        print("Conectado Ome")
+        try:
+            print("Creando...")
+            cursor.execute("CREATE DATABASE Prueba;")
+            print("\n")
+        except:
+            print("Se creo satisfactoriamente la DB Prueba")
+        cursor.close()
+
+
+    elif  op == 2:
+        conexion = pymysql.connect(
+            host="localhost",
+            user="root",
+            passwd=contraseña,
+            database=Db
+        )
+        cursor = conexion.cursor()
+        cursor.execute("SHOW DATABASES;")
+        print("Conectado Ome")
+        print("Creando Tabla...")
+        CrearTabla = """CREATE TABLE Estudiantes(
+                        Nombre Char(30) NOT NULL,
+                        Codigo INT(11) NOT NULL,
+                        Nota1 FLOAT(4) DEFAULT NULL,
+                        Nota2 FLOAT(4) DEFAULT NULL,
+                        Nota3 FLOAT(4) DEFAULT NULL,
+                        NotaFinal FLOAT(4) DEFAULT NULL,
+                        PRIMARY KEY(Codigo)
+        ) ;"""
+        cursor.execute(CrearTabla)
+        cursor.close()
+        conexion.commit()
+        conexion.close()
+
+
+"""try:
     cursor
     print("\nSe Pudo Conectar con la DB")
 except:
@@ -38,8 +81,7 @@ NotaFinal = float(Nota1)*0.35 + float(Nota2)*0.35 + float(Nota3)*0.30
 print(Nombre)
 print(NotaFinal)
 
-#   InsertarRegistro
 InsertarRegistro = "insert into Estudiantes(Nombre, Codigo, Nota1, Nota2, Nota3, NotaFinal) values (%s,%s,%s,%s,%s,%s)"
 cursor.execute(InsertarRegistro, (Nombre, Codigo, Nota1, Nota2, Nota3, NotaFinal))
 cursor.close()
-conexion.commit()
+conexion.commit()"""
