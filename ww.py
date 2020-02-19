@@ -47,7 +47,7 @@ while op != 8:
         try:
             CrearTabla = """CREATE TABLE Estudiantes(
                             Nombre Char(30) NOT NULL,
-                            Codigo INT(11) NOT NULL,
+                            Codigo INT(12) NOT NULL,
                             Nota1 FLOAT(4) DEFAULT NULL,
                             Nota2 FLOAT(4) DEFAULT NULL,
                             Nota3 FLOAT(4) DEFAULT NULL,
@@ -56,7 +56,7 @@ while op != 8:
             ) ;"""
             cursor.execute(CrearTabla)
             conexion.commit()
-            print("Cread Tabla Estudiantes")
+            print("Creada Tabla Estudiantes Satisfactoriamente")
         except:
             print("la Tabla Estudiantes Ya Existe")
         cursor.close()
@@ -87,7 +87,31 @@ while op != 8:
         conexion.commit()
 
     elif op==4:
-        print("Cuarta opción")
+        conexion = pymysql.connect(
+            host="localhost",
+            user="root",
+            passwd=contraseña,
+            database=Db
+        )
+
+        MostrarTabla = """
+            SELECT * FROM Estudiantes;
+        """
+
+        cursor = conexion.cursor()
+        cursor.execute(MostrarTabla)
+        aux = cursor.fetchall()
+        print("\nNúmero de filas:  ", cursor.rowcount)
+
+        for fila in cursor:
+            print(fila)
+        #for i in gg:
+        #    print(gg[i])
+        cursor.close()
+        conexion.close()
+
+
+
 
 
 """try:
@@ -114,4 +138,15 @@ print(NotaFinal)
 InsertarRegistro = "insert into Estudiantes(Nombre, Codigo, Nota1, Nota2, Nota3, NotaFinal) values (%s,%s,%s,%s,%s,%s)"
 cursor.execute(InsertarRegistro, (Nombre, Codigo, Nota1, Nota2, Nota3, NotaFinal))
 cursor.close()
-conexion.commit()"""
+conexion.commit()
+
+otro
+cursor1.execute("select codigo, descripcion, precio from articulos")
+for fila in cursor1:
+    print(fila)
+
+otro
+cursor1.execute("delete from articulos where codigo=1")
+cursor1.execute("update articulos set precio=50 where codigo=3")
+
+"""
