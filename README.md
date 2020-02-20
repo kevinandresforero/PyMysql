@@ -1,2 +1,2 @@
 # PyMysql
-Manejo de exepción al crear la tabla en la DB
+Manejo básico de una base de datos por consola
