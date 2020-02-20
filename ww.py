@@ -22,7 +22,7 @@ while op != 8:
     print("8. Termina\n")
     op = int(input("Digite opcion: "))
 
-    if op == 1:
+    if op == 1:         # Crear Db
         conexion = pymysql.connect(
             host="localhost",
             user="root",
@@ -40,7 +40,7 @@ while op != 8:
         cursor.close()
 
 
-    elif op == 2:
+    elif op == 2:               # Crear tabla
         conexion = pymysql.connect(
             host="localhost",
             user="root",
@@ -68,7 +68,7 @@ while op != 8:
         cursor.close()
         conexion.close()
 
-    elif op == 3:
+    elif op == 3:           #   Agregar registro
         conexion = pymysql.connect(
             host="localhost",
             user="root",
@@ -102,7 +102,7 @@ while op != 8:
         cursor.close()
         conexion.commit()
 
-    elif op == 4:
+    elif op == 4:           #   Mostrar los registros
         conexion = pymysql.connect(
             host="localhost",
             user="root",
@@ -125,7 +125,7 @@ while op != 8:
         except:
             print("Error en conexion")
 
-    elif op == 5:
+    elif op == 5:                       #   Agregar Registro
         print("Listar un estudiante")
         conexion = pymysql.connect(
             host="localhost",
@@ -207,14 +207,3 @@ while op != 8:
         conexion.commit()
         cursor.close()
         conexion.close()
-
-
-"""
-otro
-cursor1.execute("select codigo, descripcion, precio from articulos")
-for fila in cursor1:
-    print(fila)
-otro
-cursor1.execute("delete from articulos where codigo=1")
-cursor1.execute("update articulos set precio=50 where codigo=3")
-"""
