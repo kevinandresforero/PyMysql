@@ -182,21 +182,17 @@ while op != 8:
             Nota30 = float(input("Digite Nota3 del estudiante: "))
             NotaFinal = (Nota10) * 0.35 + (Nota20) * 0.35 + (Nota30) * 0.30
 
-
-
-            ActualizarRegistro = """UPDATE Estudiantes SET Nota1 =%f, Nota2=%f , Nota3=%f, NotaFinal=%f
-                                    WHERE Codigo =%f"""
+            ActualizarRegistro = """UPDATE Estudiantes SET Nota1 = %s, Nota2 = %s , Nota3 = %s, NotaFinal= %s
+                                    WHERE Codigo = %s"""
 
             acta = ((Nota10),(Nota20),(Nota30),(NotaFinal))
 
-
-            cursor.execute()
+            cursor.execute(ActualizarRegistro, (Nota10,Nota20,Nota30,NotaFinal,Codigo))
             print("Notas actualizadas")
             conexion.commit()
             cursor.close()
             conexion.close()
-        # except:
-        #   print("Error durante el proceso")
+
 
 """
 otro
