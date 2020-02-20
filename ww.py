@@ -34,9 +34,9 @@ while op != 8:
         try:
             print("Creando...")
             cursor.execute("CREATE DATABASE Prueba;")
-            print("\n")
-        except:
             print("Se creo satisfactoriamente la DB Prueba")
+        except:
+            print("Ya Fue Creada En Otra Ocación la DB Prueba")
         cursor.close()
 
 
@@ -115,10 +115,10 @@ while op != 8:
             cursor = conexion.cursor()
             cursor.execute(MostrarTabla)
             record = cursor.fetchall()
-            print("---> Numero de filas: ", cursor.rowcount)
             for fila in record:
                 print("{:<4} {:<4} {:<4} {:<4} {:<4} {:<4} ".format(fila[0], fila[1],
-                                                                    fila[2], fila[3], fila[4], fila[5]))
+                                                                    fila[2], fila[3],
+                                                                    fila[4], fila[5]))
             cursor.close()
             conexion.close()
 
@@ -185,13 +185,28 @@ while op != 8:
             ActualizarRegistro = """UPDATE Estudiantes SET Nota1 = %s, Nota2 = %s , Nota3 = %s, NotaFinal= %s
                                     WHERE Codigo = %s"""
 
-            acta = ((Nota10),(Nota20),(Nota30),(NotaFinal))
-
             cursor.execute(ActualizarRegistro, (Nota10,Nota20,Nota30,NotaFinal,Codigo))
             print("Notas actualizadas")
             conexion.commit()
             cursor.close()
             conexion.close()
+    elif op == 7:
+        #   Eliminar Registro
+        conexion = pymysql.connect(
+            host="localhost",
+            user="root",
+            passwd=contraseña,
+            database=Db
+        )
+        cursor = conexion.cursor()
+        Codigoe = int(input("Digite codigo del estudiante que quiere eliminar: "))
+        MostarTabla1 = "select * from Estudiantes"
+        Borrar = """DELETE FROM Estudiantes WHERE Codigo=%s"""
+        #cursor.execute(MostarTabla1,(Codigoe))
+        cursor.execute(Borrar,Codigoe)
+        conexion.commit()
+        cursor.close()
+        conexion.close()
 
 
 """
